@@ -4,7 +4,7 @@
 	<div class="row justify-content-center">
 		<div class="col-md-8 ">
 			<div class="card">
-				<div class="card-header">Display all vehicles</div>
+				<div class="card-header">Display all animals</div>
 				<div class="card-body">
 					<table class="table table-striped">
 						<thead>

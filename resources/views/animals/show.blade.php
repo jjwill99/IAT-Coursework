@@ -7,13 +7,13 @@
 				<div class="card-header">Display all animals</div>
 				<div class="card-body">
 					<table class="table table-striped" border="1" >
-						<tr> <td> <b>Name </th> <td> {{$animal['name']}}</td></tr>
-							<tr> <th>DOB </th> <td>{{$animal['dob']}}</td></tr>
-							<tr> <th>Description </th> <td>{{$animal['description']}}</td></tr>
-							<tr> <td>Availability </th> <td>{{$animal['availability']}}</td></tr>
-							<tr> <td>Picture </th> <td>{{$animal['picture']}}</td></tr>
+						<tr> <td> <b>Name </th> <td> {{$animal->name}}</td></tr>
+							<tr> <th>DOB </th> <td>{{$animal->dob}}</td></tr>
+							<tr> <th>Description </th> <td>{{$animal->description}}</td></tr>
+							<tr> <td>Availability </th> <td>{{$animal->availability}}</td></tr>
+							<tr> <td>Picture </th> <td>{{$animal->picture}}</td></tr>
 							<tr> <td colspan='2' ><img style="width:100%;height:100%"
-								src="{{ asset('storage/images/'.$animal['picture'])}}"></td></tr>
+								src="{{ asset('storage/images/'.$animal->picture)}}"></td></tr>
 							</table>
 							<table><tr>
 								<td><a href="/animals" class="btn btn-primary" role="button">Back to the list</a></td>
