@@ -15,3 +15,9 @@ Route::get('/', 'PageController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/admin_home', 'HomeController@admin')->name('admin_home');
+
+Route::get('display', 'AnimalController@display')->name('display_animals');
+
+Route::resource('animals', 'AnimalController');

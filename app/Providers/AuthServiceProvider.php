@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Animal;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -27,4 +28,12 @@ class AuthServiceProvider extends ServiceProvider
 
         //
     }
+
+    public function registerPolicies()
+    {
+        Gate::define('displayall', function ($user) {
+            return $user->role;
+        });
+    }
+
 }

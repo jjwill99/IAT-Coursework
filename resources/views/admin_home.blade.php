@@ -15,8 +15,8 @@
                     @endif
 
                     You are logged in!
-<!--                     <br> <br>
-                    <a href="{{ route('display_animals') }}" class="btn btn-primary">Display Animals</a> -->
+                    <br> <br>
+                    <a href="{{ route('display_animals') }}" class="btn btn-primary">Display Animals</a>
                 </div>
             </div>
         </div>
