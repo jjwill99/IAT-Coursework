@@ -48,7 +48,7 @@ class ReviewController extends Controller
     		}
 
             $animal = Animal::where("id", "=", $animalId)->first();
-            $animal->availability = 0;
+            $animal->availability = "Unavailable";
             $animal->save();
 
     	}

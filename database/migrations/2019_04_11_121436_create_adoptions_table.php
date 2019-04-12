@@ -17,7 +17,7 @@ class CreateAdoptionsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('userId');
             $table->integer('animalId');
-            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+            $table->enum('status', ['Pending', 'Accepted', 'Rejected'])->default('Pending');
             $table->timestamps();
 
             $table->foreign('userId')->references('id')->on('users');
