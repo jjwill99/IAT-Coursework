@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Gate;
 use App\Animal;
+use App\User;
+use App\Adoption;
 
 class AnimalController extends Controller
 {
@@ -21,8 +23,10 @@ class AnimalController extends Controller
      */
 	public function index()
 	{
-		$animals = Animal::all()->toArray();
-		return view('animals.index', compact('animals'));
+		$animals = Animal::all();
+        $users = User::all();
+        $adoptions = Adoption::all();
+		return view('animals.index', array('animals'=>$animals,'users'=>$users, 'adoptions'=>$adoptions));
 	}
 
     /**

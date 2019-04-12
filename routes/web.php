@@ -18,6 +18,18 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin_home', 'HomeController@admin')->name('admin_home');
 
-Route::get('display', 'AnimalController@display')->name('display_animals');
+Route::get('/animal', 'AnimalController@index')->name('animal');
+
+Route::get('/requests', 'RequestController@index')->name('requests');
+
+Route::get('/review', 'ReviewController@index')->name('review');
+
+Route::get('/user', 'UserController@show')->name('user');
 
 Route::resource('animals', 'AnimalController');
+
+Route::resource('adoptions', 'HomeController');
+
+Route::resource('reviews', 'ReviewController');
+
+Route::resource('users', 'UserController');

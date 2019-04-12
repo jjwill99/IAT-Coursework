@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Admin Dashboard</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -16,7 +16,9 @@
 
                     You are logged in!
                     <br> <br>
-                    <a href="{{ route('display_animals') }}" class="btn btn-primary">Display Animals</a>
+                    <a href="{{ route('animal') }}" class="btn btn-primary">Display Animals</a>
+                    <br> <br>
+                    <a href="{{ route('review') }}" class="btn btn-primary">Display Reviews</a>
                 </div>
             </div>
         </div>

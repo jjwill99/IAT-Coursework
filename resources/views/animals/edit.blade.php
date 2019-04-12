@@ -32,7 +32,7 @@
 					</div>
 					<div class="col-md-8">
 						<label>Animal DOB</label>
-						<input type="date" name="dob" />
+						<input type="date" name="dob" value="{{$animal->dob}}" />
 					</div>
 					<div class="col-md-8">
 						<label >Animal Description</label>
@@ -40,7 +40,10 @@
 					</div>
 					<div class="col-md-8">
 						<label >Animal Availability</label>
-						<input type="text" name="availability" value="{{$animal->availability}}" />
+						<select name="availability">
+							<option value="1">Available</option>
+							<option value="0">Not Available</option>
+						</select>
 					</div>
 					<div class="col-md-8">
 						<label>Animal Picture</label>

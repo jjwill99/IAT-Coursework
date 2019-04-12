@@ -9,14 +9,55 @@
 
                 <div class="panel-body">
                     @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
                     @endif
 
-                    You are logged in!
-<!--                     <br> <br>
-                    <a href="{{ route('display_animals') }}" class="btn btn-primary">Display Animals</a> -->
+                    Welcome {{$username}}!
+
+                    <br> <br>
+
+                    Available animals:
+
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th><th>DOB</th>
+                                <th>Description </th><th>Picture</th>
+                                <th>Request an adoption</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($animals as $animal)
+                            <?php $requested = false; ?>
+                            @if($animal->availability == 1)
+                            <tr>
+                                <td> {{$animal->name}} </td>
+                                <td> {{$animal->dob}} </td>
+                                <td> {{$animal->description}} </td>
+                                <td><center><img style="width:50%;height:50%" src="{{asset('storage/images/'.$animal->picture)}}"></center></td>
+                                <td>
+                                @foreach($adoptions as $adoption)
+                                @if($adoption->userId == $userId && $adoption->animalId == $animal->id)
+                                Request is being processed...
+                                <?php $requested = true; ?>
+                                @endif                               
+                                @endforeach
+                                @if($requested == false)
+                                <form method="POST" class="form-horizontal" action="{{url('adoptions')}}" enctype="multipart/form-data">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="userId" value="{{ $userId }}" />
+                                    <input type="hidden" name="animalId" value="{{ $animal->id }}" />
+                                    <input type="submit" class="btn btn-primary" value="Adopt this animal" />
+                                </form>
+                                @endif
+                                </td>
+                            </tr>
+                            @endif
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

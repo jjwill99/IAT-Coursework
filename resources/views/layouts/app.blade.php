@@ -34,16 +34,15 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <!-- &nbsp; -->
+                        &nbsp;
                         @guest
                         @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('animals') }}">List </a>
+                            <a class="nav-link" href="{{ url('home') }}">Dashboard </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('animals/create') }}">Create </a>
+                            <a class="nav-link" href="{{ url('requests') }}">Adoption Requests </a>
                         </li>
                         @endguest
                     </ul>

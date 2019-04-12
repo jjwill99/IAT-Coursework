@@ -27,7 +27,7 @@
           <div class="col-md-8">
             <label >Name</label>
             <input type="text" name="name"
-            placeholder="name" />
+            placeholder="Enter Name" />
           </div>
           <div class="col-md-8">
             <label>DOB</label>
@@ -35,7 +35,7 @@
           </div>
           <div class="col-md-8">
             <label >Description</label>
-            <textarea rows="1" cols="50" name="description" placeholder="Animal description"></textarea>
+            <textarea rows="1" cols="50" name="description" placeholder="Enter animal description"></textarea>
             </div>
             <div class="col-md-8">
               <label>Picture</label>
