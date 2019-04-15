@@ -34,6 +34,8 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <!-- Left Side Of NavBar -->
+                    @if(Auth::check() && Auth::user()->role == 0)
                     <ul class="nav navbar-nav">
                         &nbsp;
                         @guest
@@ -42,10 +44,34 @@
                             <a class="nav-link" href="{{ url('home') }}">Dashboard </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ url('adopt') }}">Available Animals </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url('requests') }}">Adoption Requests </a>
                         </li>
                         @endguest
                     </ul>
+                    @else
+                    <ul class="nav navbar-nav">
+                        &nbsp;
+                        @guest
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('admin_home') }}">Admin Dashboard </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('animals') }}">All Animals </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('review') }}">Review Requests </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('reviewAll') }}">All Requests </a>
+                        </li>
+
+                        @endguest
+                    </ul>
+                    @endif
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -79,9 +105,14 @@
         </div>
     </nav>
 
-    @yield('content')
-</div>
+    <div class="main">
+        @yield('content')
+    </div>
 
+</div>
+<div class="footer">
+    &copy <?= date("Y")?> Aston Animal Sanctuary, Aston triangle, Birmingham, B4 7ET +44 (0) 121 204 3000
+</div>
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 </body>

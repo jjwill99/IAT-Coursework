@@ -1,16 +1,17 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-	<div class="row justify-content-center">
-		<div class="col-md-8 ">
-			<div class="card">
-				<div class="card-header">Display all animals</div>
-				<div class="card-body">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="panel panel-default">
+				<div class="panel-heading">Display all animals</div>
+				<div class="panel-body">
 					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th>Name</th>
 								<th>DOB</th>
+								<th>Type</th>
 								<th>Description</th>
 								<th>Availability</th>
 								<th>Adopted by:</th>
@@ -20,25 +21,28 @@
 						<tbody>
 							@foreach($animals as $animal)
 							<tr>
-								<td>{{$animal['name']}}</td>
-								<td>{{$animal['dob']}}</td>
-								<td>{{$animal['description']}}</td>
-								<td>{{$animal['availability']}}</td>
+								<td>{{$animal->name}}</td>
+								<td>{{$animal->dob}}</td>
+								<td>{{$animal->type}}</td>
+								<td>{{$animal->description}}</td>
+								<td>{{$animal->availability}}</td>
 
-								<?php $adoption = $adoptions->where('animalId', '=', $animal->id)->where('status', '=', 'accepted')->first();
-								$userId = $adoption["userId"];
-								$user = $users->where('id', '=', $userId)->first();
-								$username = $user["username"];
-								$firstname = $user["firstname"];
-								$lastname = $user["lastname"];
+								<?php 
+								$username ="";
+								$adoption = $adoptions->where('animalId', '=', $animal->id)->where('status', '=', 'Accepted')->first();
+								if ($adoption != null) {
+									$userId = $adoption->userId;
+									$user = $users->where('id', '=', $userId)->first();
+									$username = $user->username;
+								}
 								?>
 
 								@if($username != "")
-								<td><a href="{{action('UserController@show', $user['id'])}}" class="btn
+								<td><a href="{{action('UserController@show', $user->id)}}" class="btn
 									btn- primary">{{ $username }}</a></td>
-								@else
+									@else
 									<td>No owner</td>
-								@endif
+									@endif
 
 									<td><a href="{{action('AnimalController@show', $animal['id'])}}" class="btn
 										btn- primary">Details</a></td>

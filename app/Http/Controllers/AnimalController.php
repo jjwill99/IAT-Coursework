@@ -7,6 +7,7 @@ use Gate;
 use App\Animal;
 use App\User;
 use App\Adoption;
+use App\Image;
 
 class AnimalController extends Controller
 {
@@ -26,8 +27,8 @@ class AnimalController extends Controller
 		$animals = Animal::all();
         $users = User::all();
         $adoptions = Adoption::all();
-		return view('animals.index', array('animals'=>$animals,'users'=>$users, 'adoptions'=>$adoptions));
-	}
+        return view('animals.index', array('animals'=>$animals,'users'=>$users, 'adoptions'=>$adoptions));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -51,36 +52,21 @@ class AnimalController extends Controller
     	$animal = $this->validate(request(), [
     		'name' => 'required',
     		'dob' => 'required',
-    		'picture' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:500',
     	]);
 
-		//Handles the uploading of the image
-    	if ($request->hasFile('picture')) {
-			//Gets the filename with the extension
-    		$fileNameWithExt = $request->file('picture')->getClientOriginalName();
-			//Just gets the filename
-    		$filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-			//Just gets the extension
-    		$extension = $request->file('picture')->getClientOriginalExtension();
-			//Gets the filename to store
-    		$filenameToStore = $filename.'_'.time().'.'.$extension;
-
-			//Uploads the image
-    		$path = $request->file('picture')->storeAs('public/images', $filenameToStore);
-    	} else {
-    		$filenameToStore = 'noimage.jpg';
-    	}
 		//Create an Animal object and set its values from the input
     	$animal = new Animal;
     	$animal->name = $request->input('name');
     	$animal->dob = $request->input('dob');
-    	$animal->description = $request->input('description');
-    	$animal->picture = $filenameToStore;
+        $animal->type = $request->input('type');
+        $animal->description = $request->input('description');
 
 		//Save the Animal object
-    	$animal->save();
+        $animal->save();
+
+        $this->addPicture($request, $animal->id);
 		//Generate a redirect HTTP response with a success message
-    	return back()->with('success', 'Animal has been added');
+        return back()->with('success', 'Animal has been added');
     }
 
     /**
@@ -92,7 +78,8 @@ class AnimalController extends Controller
     public function show($id)
     {
     	$animal = Animal::find($id);
-    	return view('animals.show',compact('animal'));
+        $pictures = Image::where("animalId", "=", $id)->get();
+    	return view('animals.show', array('animal'=>$animal, 'pictures'=>$pictures));
     }
 
     /**
@@ -120,31 +107,16 @@ class AnimalController extends Controller
     	$this->validate(request(), [
     		'name' => 'required',
     		'dob' => 'required',
-    		'picture' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:500',
-    	]);
+            'type' => 'required',
+        ]);
     	$animal->name = $request->input('name');
     	$animal->dob = $request->input('dob');
-    	$animal->description = $request->input('description');
-    	$animal->availability = $request->input('availability');
-    	$animal->picture = $request->input('picture');
-		//Handles the uploading of the picture
-    	if ($request->hasFile('picture')){
-		//Gets the filename with the extension
-    		$fileNameWithExt = $request->file('picture')->getClientOriginalName();
-		//just gets the filename
-    		$filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-		//Just gets the extension
-    		$extension = $request->file('picture')->getClientOriginalExtension();
-		//Gets the filename to store
-    		$fileNameToStore = $filename.'_'.time().'.'.$extension;
-		//Uploads the picture
-    		$path = $request->file('picture')->storeAs('public/images', $fileNameToStore);
-    	} else {
-    		$fileNameToStore = 'noimage.jpg';
-    	}
-    	$animal->picture = $fileNameToStore;
-    	$animal->save();
-    	return redirect('animals')->with('success','Animal has been updated');
+        $animal->type = $request->input('type');
+        $animal->description = $request->input('description');
+        $animal->availability = $request->input('availability');
+        $this->addPicture($request, $id);
+        $animal->save();
+        return redirect('animals')->with('success','Animal has been updated');
     }
 
     /**
@@ -157,7 +129,38 @@ class AnimalController extends Controller
     {
     	$animal = Animal::find($id);
     	$animal->delete();
-    	return redirect('animals')->with('success','Animal has been deleted');
+
+        $adoptions = Adoption::where("animalId", "=", $id)->get();
+        foreach ($adoptions as $adoption) {
+            $adoption->delete();
+        }
+        
+        return redirect('animals')->with('success','Animal has been deleted');
+    }
+
+    public function addPicture(Request $request, $animalId){
+        $this->validate(request(), [
+            'picture' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:500',
+        ]);
+        $image = new Image;
+        $image->animalId = $animalId;
+        //Handles the uploading of the picture
+        if ($request->hasFile('picture')){
+        //Gets the filename with the extension
+            $fileNameWithExt = $request->file('picture')->getClientOriginalName();
+        //just gets the filename
+            $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+        //Just gets the extension
+            $extension = $request->file('picture')->getClientOriginalExtension();
+        //Gets the filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+        //Uploads the picture
+            $path = $request->file('picture')->storeAs('public/images', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+        $image->picture = $fileNameToStore;
+        $image->save();
     }
 
 }

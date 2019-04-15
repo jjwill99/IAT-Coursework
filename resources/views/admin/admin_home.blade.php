@@ -14,11 +14,13 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Welcome to the admin page!
                     <br> <br>
                     <a href="{{ route('animal') }}" class="btn btn-primary">Display Animals</a>
                     <br> <br>
-                    <a href="{{ route('review') }}" class="btn btn-primary">Display Reviews</a>
+                    <a href="{{ route('review') }}" class="btn btn-primary">Display Pending Requests</a>
+                    <br> <br>
+                    <a href="{{ route('reviewAll') }}" class="btn btn-primary">Display All Requests</a>
                 </div>
             </div>
         </div>

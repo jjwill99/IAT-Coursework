@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Animal;
+use App\Image;
 use App\Adoption;
 use Illuminate\Http\Request;
 
@@ -23,14 +24,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $requested = false;
-        $animalsQuery = Animal::all();
-        $userId = \Auth::user()->id;
         $username = \Auth::user()->username;
-        $adoptionsQuery = Adoption::all();
-        return view('\home', array('animals'=>$animalsQuery, 'userId'=>$userId, 'username'=>$username, 'adoptions'=>$adoptionsQuery, 'requested'=>$requested));
+        return view('\home', array('username'=>$username));
     }
 
     public function admin()
@@ -61,6 +58,24 @@ class HomeController extends Controller
         $adoption->save();
         //Generate a redirect HTTP response with a success message
         return back()->with('success', 'Adoption request has been added');
+    }
+
+    public function animals(Request $request)
+    {
+        $filter = $request->input("filter");
+        $requested = false;
+        $images = Image::all();
+        $animalsQuery = Animal::all();
+        $userId = \Auth::user()->id;
+        $username = \Auth::user()->username;
+        $adoptionsQuery = Adoption::all();
+        return view('\animals', array('filter'=>$filter, 'animals'=>$animalsQuery, 'userId'=>$userId, 'username'=>$username, 'adoptions'=>$adoptionsQuery, 'requested'=>$requested, 'images'=>$images));
+    }
+
+    public function showAnimal($id){
+        $animal = Animal::find($id);
+        $pictures = Image::where("animalId", "=", $id)->get();
+        return view('\show', array('animal'=>$animal, 'pictures'=>$pictures));
     }
 
 }

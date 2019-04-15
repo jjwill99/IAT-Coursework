@@ -27,26 +27,38 @@
 					<!-- @csrf -->
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="col-md-8">
-						<label >Animal Name</label>
+						<label >Name</label>
 						<input type="text" name="name" value="{{$animal->name}}"/>
 					</div>
 					<div class="col-md-8">
-						<label>Animal DOB</label>
+						<label>Date Of Birth</label>
 						<input type="date" name="dob" value="{{$animal->dob}}" />
 					</div>
 					<div class="col-md-8">
-						<label >Animal Description</label>
+						<label>Animal Type</label>
+						<select name="type">
+							<option value="Dog">Dog</option>
+							<option value="Cat">Cat</option>
+							<option value="Rabbit">Rabbit</option>
+							<option value="Bird">Bird</option>
+							<option value="Reptile">Reptile</option>
+							<option value="Fish">Fish</option>
+							<option value="Amphibian">Amphibian</option>
+						</select>
+					</div>
+					<div class="col-md-8">
+						<label >Description</label>
 						<input type="text" name="description" value="{{$animal->description}}" />
 					</div>
 					<div class="col-md-8">
-						<label >Animal Availability</label>
+						<label >Availability</label>
 						<select name="availability">
 							<option value="Available">Available</option>
 							<option value="Unavailable">Unavailable</option>
 						</select>
 					</div>
 					<div class="col-md-8">
-						<label>Animal Picture</label>
+						<label>Add Picture</label>
 						<input type="file" name="picture" />
 					</div>
 					<div class="col-md-6 col-md-offset-4">

@@ -17,9 +17,9 @@ class CreateAnimalsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->date('dob');
+            $table->enum('type', ['Dog', 'Cat', 'Rabbit', 'Bird', 'Reptile', 'Fish', 'Amphibian']);
             $table->string('description');
             $table->enum('availability', ['Available', 'Unavailable'])->default('Available');
-            $table->binary('picture');
             $table->timestamps();
         });
     }

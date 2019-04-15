@@ -34,22 +34,34 @@
             <input type="date" name="dob" />
           </div>
           <div class="col-md-8">
+            <label>Animal Type</label>
+            <select name="type">
+              <option value="Dog">Dog</option>
+              <option value="Cat">Cat</option>
+              <option value="Rabbit">Rabbit</option>
+              <option value="Bird">Bird</option>
+              <option value="Reptile">Reptile</option>
+              <option value="Fish">Fish</option>
+              <option value="Amphibian">Amphibian</option>
+            </select>
+          </div>
+          <div class="col-md-8">
             <label >Description</label>
             <textarea rows="1" cols="50" name="description" placeholder="Enter animal description"></textarea>
-            </div>
-            <div class="col-md-8">
-              <label>Picture</label>
-              <input type="file" name="picture"
-              placeholder="Image file" />
-            </div>
-            <div class="col-md-6 col-md-offset-4">
-              <input type="submit" class="btn btn-primary" />
-              <input type="reset" class="btn btn-primary" />
-            </div>
-          </form>
-        </div>
+          </div>
+          <div class="col-md-8">
+            <label>Picture</label>
+            <input type="file" name="picture"
+            placeholder="Image file" />
+          </div>
+          <div class="col-md-6 col-md-offset-4">
+            <input type="submit" class="btn btn-primary" />
+            <input type="reset" class="btn btn-primary" />
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
 </div>
 @endsection

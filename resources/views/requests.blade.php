@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Your adoption requests</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -13,8 +13,6 @@
                         {{ session('status') }}
                     </div>
                     @endif
-
-                    Requested animals:
 
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
@@ -28,9 +26,16 @@
                             @foreach($adoptions as $adoption)
                             @if($adoption->userId == $userId)
                             <tr>
-                                <td> {{$animals[$adoption->animalId - 1]->name}} </td>
-                                <td> {{$animals[$adoption->animalId - 1]->description}} </td>
-                                <td><center><img style="width:50%;height:50%" src="{{asset('storage/images/'.$animals[$adoption->animalId - 1]->picture)}}"></center></td>
+                                <?php
+                                    $animal = $animals->where("id", "=", $adoption->animalId)->first();
+                                ?>
+                                <td><a href="{{action('RequestController@showAnimal', $animal->id)}}" class="btn
+                                    btn- primary">{{ $animal->name }}</a></td>
+                                <td> {{$animal->description}} </td>
+                                <?php
+                                    $picture = $pictures->where("animalId", "=", $animal->id)->first();
+                                ?>
+                                <td><center><img style="width:50%;height:50%" src="{{asset('storage/images/'.$picture->picture)}}"></center></td>
                                 <td> {{$adoption->status}} </td>
                             </tr>
                             @endif

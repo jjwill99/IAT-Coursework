@@ -40,7 +40,7 @@ class LoginController extends Controller
     //Redirects the user based on their role.
     protected function authenticated($request, $user){
         if ($user->role == 1) {
-            return redirect('/admin_home');
+            return redirect('/review');
         } else {
             return redirect('/home');
         }
