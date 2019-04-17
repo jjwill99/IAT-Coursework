@@ -60,6 +60,11 @@ class HomeController extends Controller
         return back()->with('success', 'Adoption request has been added');
     }
 
+    /**
+    * Show the application page displaying available animals.
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function animals(Request $request)
     {
         $filter = $request->input("filter");
@@ -72,6 +77,12 @@ class HomeController extends Controller
         return view('\animals', array('filter'=>$filter, 'animals'=>$animalsQuery, 'userId'=>$userId, 'username'=>$username, 'adoptions'=>$adoptionsQuery, 'requested'=>$requested, 'images'=>$images));
     }
 
+    /**
+    * Show the application page displaying information on a specific animal.
+    *
+    * @param int $id
+    * @return \Illuminate\Http\Response
+    */
     public function showAnimal($id){
         $animal = Animal::find($id);
         $pictures = Image::where("animalId", "=", $id)->get();

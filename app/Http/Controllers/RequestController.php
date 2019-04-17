@@ -24,12 +24,23 @@ class RequestController extends Controller
         return view('\requests', array('animals'=>$animalsQuery, 'userId'=>$userId, 'adoptions'=>$adoptionsQuery, 'pictures'=>$pictures));
     }
 
+    /**
+     * Show the available animals page.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
     public function showAnimal($id){
         $animal = Animal::find($id);
         $pictures = Image::where("animalId", "=", $id)->get();
-        return view('\show', array('animal'=>$animal, 'pictures'=>$pictures));
+        return view('\animal', array('animal'=>$animal, 'pictures'=>$pictures));
     }
 
+    /**
+     * Show the pending requests review page.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function admin(){
         $animalsQuery = Animal::all();
         $users = User::all();

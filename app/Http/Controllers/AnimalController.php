@@ -11,6 +11,11 @@ use App\Image;
 
 class AnimalController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
 	public function display()
 	{
 		$animalsQuery = Animal::all();
@@ -138,6 +143,11 @@ class AnimalController extends Controller
         return redirect('animals')->with('success','Animal has been deleted');
     }
 
+    /**
+    * Store a newly specified resource in storage.
+    * 
+    * @param int $id
+    */
     public function addPicture(Request $request, $animalId){
         $this->validate(request(), [
             'picture' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:500',

@@ -39,11 +39,11 @@ class ReviewController extends Controller
     	$adoption->status = $request->input('status');
     	$adoption->save();
     	
-    	if ($adoption->status == 'accepted') {
+    	if ($adoption->status == 'Accepted') {
 
-    		$pendings = Adoption::where("animalId", "=", $animalId)->where("status", "=", "pending")->get();
+    		$pendings = Adoption::where("animalId", "=", $animalId)->where("status", "=", "Pending")->get();
     		foreach ($pendings as $pending) {
-    			$pending->status = 'rejected';
+    			$pending->status = 'Rejected';
     			$pending->save();
     		}
 
@@ -56,7 +56,13 @@ class ReviewController extends Controller
     	return redirect('reviews')->with('success','Adoption has been updated');
     }
 
-    public function store()
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
     	//
     }

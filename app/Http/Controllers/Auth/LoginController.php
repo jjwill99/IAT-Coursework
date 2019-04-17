@@ -42,8 +42,12 @@ class LoginController extends Controller
         if ($user->role == 1) {
             return redirect('/review');
         } else {
-            return redirect('/home');
+            return redirect('/adopt');
         }
+    }
+
+    public function username(){
+        return 'username';
     }
 
 }
