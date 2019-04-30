@@ -18,7 +18,7 @@
 							</table>
 							<table><tr>
 								<!-- Button to take the user back to the previous page -->
-								<td><a href="/animal" class="btn btn-primary" role="button">Back to the list</a></td>
+								<td><a href="{{ route('animal') }}" class="btn btn-primary" role="button">Back to the list</a></td>
 								</tr></table>
 							</div>
 						</div>

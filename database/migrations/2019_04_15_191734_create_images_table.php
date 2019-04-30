@@ -19,7 +19,7 @@ class CreateImagesTable extends Migration
             $table->binary('picture');
             $table->timestamps();
 
-            $table->foreign('animalId')->references('id')->on('animals');
+            //$table->foreign('animalId')->references('id')->on('animals');
         });
     }
 

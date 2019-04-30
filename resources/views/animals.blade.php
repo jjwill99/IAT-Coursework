@@ -52,7 +52,11 @@
                                 <?php
                                     $picture = $images->where("animalId", "=", $animal->id)->first();
                                 ?>
+                                @if($picture != null)
                                 <td><center><img style="width:50%;height:50%" src="{{asset('storage/images/'.$picture->picture)}}"></center></td>
+                                @else
+                                <td>No image</td>
+                                @endif
                                 <td>
                                     @foreach($adoptions as $adoption)
                                     @if($adoption->userId == $userId && $adoption->animalId == $animal->id)

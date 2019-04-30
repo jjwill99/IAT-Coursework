@@ -11,16 +11,6 @@ use App\Image;
 
 class AnimalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-	public function display()
-	{
-		$animalsQuery = Animal::all();
-		return view('/display', array('animals'=>$animalsQuery));
-	}
 
 	/**
      * Display a listing of the resource.
@@ -84,7 +74,7 @@ class AnimalController extends Controller
     {
     	$animal = Animal::find($id);
         $pictures = Image::where("animalId", "=", $id)->get();
-    	return view('animals.show', array('animal'=>$animal, 'pictures'=>$pictures));
+        return view('animals.show', array('animal'=>$animal, 'pictures'=>$pictures));
     }
 
     /**
@@ -139,6 +129,11 @@ class AnimalController extends Controller
         foreach ($adoptions as $adoption) {
             $adoption->delete();
         }
+
+        $images = Image::where("animalId", "=", $id)->get();
+        foreach ($images as $image) {
+            $image->delete();
+        }
         
         return redirect('animals')->with('success','Animal has been deleted');
     }
@@ -166,11 +161,9 @@ class AnimalController extends Controller
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
         //Uploads the picture
             $path = $request->file('picture')->storeAs('public/images', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.jpg';
+            $image->picture = $fileNameToStore;
+            $image->save();
         }
-        $image->picture = $fileNameToStore;
-        $image->save();
     }
 
 }

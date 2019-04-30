@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $username = \Auth::user()->username;
-        return view('\home', array('username'=>$username));
+        return view('home', array('username'=>$username));
     }
 
     public function admin()
@@ -74,7 +74,7 @@ class HomeController extends Controller
         $userId = \Auth::user()->id;
         $username = \Auth::user()->username;
         $adoptionsQuery = Adoption::all();
-        return view('\animals', array('filter'=>$filter, 'animals'=>$animalsQuery, 'userId'=>$userId, 'username'=>$username, 'adoptions'=>$adoptionsQuery, 'requested'=>$requested, 'images'=>$images));
+        return view('animals', array('filter'=>$filter, 'animals'=>$animalsQuery, 'userId'=>$userId, 'username'=>$username, 'adoptions'=>$adoptionsQuery, 'requested'=>$requested, 'images'=>$images));
     }
 
     /**
@@ -86,7 +86,7 @@ class HomeController extends Controller
     public function showAnimal($id){
         $animal = Animal::find($id);
         $pictures = Image::where("animalId", "=", $id)->get();
-        return view('\show', array('animal'=>$animal, 'pictures'=>$pictures));
+        return view('show', array('animal'=>$animal, 'pictures'=>$pictures));
     }
 
 }

@@ -18,7 +18,7 @@
 							@endforeach
 							</table>
 							<table><tr>
-								<td><a href="/adopt" class="btn btn-primary" role="button">Back to the list</a></td>
+								<td><a href="{{ route('adopt') }}" class="btn btn-primary" role="button">Back to the list</a></td>
 								</tr></table>
 							</div>
 						</div>

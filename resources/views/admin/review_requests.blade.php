@@ -47,9 +47,9 @@
                                         {!! method_field('patch') !!}
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <select name="status">
-                                            <option value="pending">Pending</option>
-                                            <option value="accepted">Accepted</option>
-                                            <option value="rejected">Rejected</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Accepted">Accepted</option>
+                                            <option value="Rejected">Rejected</option>
                                         </select>
                                         <input type="submit" class="btn btn-primary" value="Submit" />
                                     </form>

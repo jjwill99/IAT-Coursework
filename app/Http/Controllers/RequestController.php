@@ -21,7 +21,7 @@ class RequestController extends Controller
         $animalsQuery = Animal::all();
         $userId = \Auth::user()->id;
         $adoptionsQuery = Adoption::all();
-        return view('\requests', array('animals'=>$animalsQuery, 'userId'=>$userId, 'adoptions'=>$adoptionsQuery, 'pictures'=>$pictures));
+        return view('requests', array('animals'=>$animalsQuery, 'userId'=>$userId, 'adoptions'=>$adoptionsQuery, 'pictures'=>$pictures));
     }
 
     /**
@@ -33,7 +33,7 @@ class RequestController extends Controller
     public function showAnimal($id){
         $animal = Animal::find($id);
         $pictures = Image::where("animalId", "=", $id)->get();
-        return view('\animal', array('animal'=>$animal, 'pictures'=>$pictures));
+        return view('animal', array('animal'=>$animal, 'pictures'=>$pictures));
     }
 
     /**
